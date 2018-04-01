@@ -10,12 +10,12 @@ public class GoodTest {
 		System.out.println("Jerry has money: " + Jerry.getAmount());
 		System.out.println("Cory has money: " + Cory.getAmount() + "\n");
 		
-		// Create 4 actions, which will generate a loop
+		// Create 3 actions, which will generate a loop
 		Runnable tomToJerry = new GoodTransfer(500, Tom, Jerry);
 		Runnable jerryToCory = new GoodTransfer(400, Jerry, Cory);
 		Runnable coryToChris = new GoodTransfer(300, Cory, Tom);
 		
-		// Run 4 actions
+		// Run 3 actions
 		Thread t1 = new Thread(tomToJerry, "TOMTOJERRY");
 		Thread t2 = new Thread(jerryToCory, "JERRYTOCORY");
 		Thread t3 = new Thread(coryToChris, "CORYTOCHRIS");

@@ -2,7 +2,7 @@
 Several Java Multithreading demos I played with these days.
 
 ## countDownLatchDemo
-Use `CountDownLatch` and `ExecutorService` threadpool in this case. Basically, the main program creates 100 threads with the `newCachedThreadPool()`, and for each thread, the `countDown()` is executed. In this case, the `SampleThread` has to wait until all `WorkingThread`s has been terminated. 
+Use `CountDownLatch` and `ExecutorService` threadpool in this case. Basically, the main program creates 100 threads with the `newCachedThreadPool()`, and for each thread, the `countDown()` is executed. In this case, the `SampleThread` has to wait until all `WorkingThreads` has been terminated. 
 A typical result is shown below:
 ```
 SampleThread started!
@@ -219,12 +219,12 @@ Tom has money: 3000
 Jerry has money: 3000
 Cory has money: 3000
 
-JERRYTOCORY Start
 TOMTOJERRY Start
-CORYTOCHRIS Start
-JERRYTOCORY gets lock of in account(Jerry)
-CORYTOCHRIS gets lock of in account(Cory)
+CORYTOTOM Start
+JERRYTOCORY Start
+CORYTOTOM gets lock of in account(Cory)
 TOMTOJERRY gets lock of in account(Tom)
+JERRYTOCORY gets lock of in account(Jerry)
 ```
 All 3 threads get the lock of their respective `in` account, and trying to get the lock of `out` account. No one can execute one more step.
 
