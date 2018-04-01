@@ -534,6 +534,6 @@ Consumes Bread #100, still have 0 breads
 End of the demo
 ```
 
-Both the `Producer` and the `Consumer` has the mission of 100 `Bread`s. If the thread find the situation is not satisfactory to it to produce/consume more `Bread`s, it will invoke `wait()` and immediately exit the synchronized block and give up the key of the `Basket`. At the same time, the other thread has already been `notified` before so it can take charge of the key. This thread will `awake` from the `wait()` function which caused its previous sleep. 
+Both the `Producer` and the `Consumer` has the mission of 100 `Breads`. If the thread find the situation is not satisfactory to it to produce/consume more `Breads`, it will invoke `wait()` and immediately exit the synchronized block and give up the key of the `Basket`. At the same time, the other thread has already been `notified` before so it can take charge of the key. This thread will `awake` from the `wait()` function which caused its previous sleep. 
 
 At the end of each synchronized blocks (`add()` and `poll()` function in our example), we `notify` all threads that we are going to get out of the synchronized block, its their time to take charge of the key. Basically, there will be multiple threads that are able to get the key of the `Basket`, the JVM just randomly pick one. This is the reason why the `Producer` can produce again and again but the `Consumer` cannot eat a single bread. The `Consumer` just not lucky enough.
