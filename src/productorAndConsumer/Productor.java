@@ -9,7 +9,7 @@ public class Productor implements Runnable {
 	}
 	public void run() {
 		for (int i = 1; i <= mission; i++) {
-			Bread b = new Bread("第" + i + "个馒头");
+			Bread b = new Bread("Bread #" + i);
 			basket.add(b);
 		}
 	}
