@@ -235,18 +235,18 @@ Tom has money: 3000
 Jerry has money: 3000
 Cory has money: 3000
 
-TOMTOJERRY Start
-CORYTOCHRIS Start
 JERRYTOCORY Start
-CORYTOCHRIS gets lock of IN account(Cory)
-CORYTOCHRIS gets lock of OUT account(Tom)
+CORYTOTOM Start
+TOMTOJERRY Start
 JERRYTOCORY gets lock of OUT account(Cory)
 TOMTOJERRY gets lock of OUT account(Jerry)
 TOMTOJERRY gets lock of IN account(Tom)
 TOMTOJERRY finishs transfering
-CORYTOCHRIS finishs transfering
 JERRYTOCORY gets lock of IN account(Jerry)
 JERRYTOCORY finishs transfering
+CORYTOTOM gets lock of IN account(Cory)
+CORYTOTOM gets lock of OUT account(Tom)
+CORYTOTOM finishs transfering
 
 Tom has money: 2800
 Jerry has money: 3100

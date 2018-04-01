@@ -13,12 +13,12 @@ public class GoodTest {
 		// Create 3 actions, which will generate a loop
 		Runnable tomToJerry = new GoodTransfer(500, Tom, Jerry);
 		Runnable jerryToCory = new GoodTransfer(400, Jerry, Cory);
-		Runnable coryToChris = new GoodTransfer(300, Cory, Tom);
+		Runnable coryToTom = new GoodTransfer(300, Cory, Tom);
 		
 		// Run 3 actions
 		Thread t1 = new Thread(tomToJerry, "TOMTOJERRY");
 		Thread t2 = new Thread(jerryToCory, "JERRYTOCORY");
-		Thread t3 = new Thread(coryToChris, "CORYTOCHRIS");
+		Thread t3 = new Thread(coryToTom, "CORYTOTOM");
 		t1.start();
 		t2.start();
 		t3.start();
