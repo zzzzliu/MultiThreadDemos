@@ -562,9 +562,9 @@ Imagine the scenario:
     <tr>
         <td>
             1. Fetch value of <i>i</i> from memory <br>
-                <span style="margin-left: 30px">i = 6 in memory</span><br>
+                i = 6 in memory<br>
             2. Add 1 to the value <br>
-                <span style="margin-left: 30px">i = 7 in cache</span><br>
+                i = 7 in cache<br>
         </td>
         <td></td>
     </tr> 
@@ -572,16 +572,16 @@ Imagine the scenario:
         <td></td>
         <td>
             1. Fetch value of <i>i</i> from memory <br>
-                <span style="margin-left: 30px">i = 6 in memory</span><br>
+                i = 6 in memory<br>
             2. Add 1 to the value <br>
-                <span style="margin-left: 30px">i = 7 in cache</span><br>
+                i = 7 in cache<br>
             3. Write back to the memory <br>
-                <span style="margin-left: 30px">i = 7 in memory</span><br>
+                i = 7 in memory
         </td>
     </tr>
         <td>
             3. Write back to the memory <br>
-                <span style="margin-left: 30px">i = 7 in memory</span><br>
+                i = 7 in memory
         </td>
         <td></td>
 </table>
