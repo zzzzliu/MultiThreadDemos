@@ -13,7 +13,7 @@ public class Basket {
 				try {
 					System.out.println("Tell " + Thread.currentThread().getName() + " Thread, the basket is full, enter wait()!!!");
 					basket.wait();
-					System.out.println(Thread.currentThread().getName() + " Thread appears after the wait() in add()");
+					System.out.println(Thread.currentThread().getName() + " Thread awakes from the wait() in add()");
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -31,7 +31,7 @@ public class Basket {
 				try {
 					System.out.println("Tell " + Thread.currentThread().getName() + " Thread, the basket is empty, enter wait()!!!");
 					basket.wait();
-					System.out.println(Thread.currentThread().getName() + " Thread appears after the wait() in poll()");
+					System.out.println(Thread.currentThread().getName() + " Thread awakes from the wait() in poll()");
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

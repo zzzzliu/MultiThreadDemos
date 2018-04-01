@@ -262,249 +262,271 @@ According to Wikipeida the Producer-Consumer Problem is defined as:
 In computing, the producer–consumer problem (also known as the bounded-buffer problem) is a classic example of a multi-process synchronization problem. The problem describes two processes, the producer and the consumer, who share a common, fixed-size buffer used as a queue. 
 ```
 
-In our example, the `Producer` and `Consumer` share a same `Basket` whose size is strictly `10`. Every time the `Producer` produces a new `Bread`, they add it into the `Basket`, and every time the `Consumer` is hungry, they take one `Bread` from the `Basket`. If the `Basket` is full, the `Producer` cannot add anymore `Bread`s. If the `Basket` is empty, the `Consumer` cannot eat anymore.
+In our example, the `Producer` and `Consumer` share a same `Basket` whose size is strictly `10`. Every time the `Producer` produces a new `Bread`, they add it into the `Basket`, and every time the `Consumer` is hungry, they take one `Bread` from the `Basket`. If the `Basket` is full, the `Producer` cannot add anymore `Breads`. If the `Basket` is empty, the `Consumer` cannot eat anymore.
 
 A typical result is shown below:
 ```
 Tell Consumer Thread, the basket is empty, enter wait()!!!
 Produces Bread #1, still have 1 breads
-Produces Bread #2, still have 2 breads
-Produces Bread #3, still have 3 breads
-Produces Bread #4, still have 4 breads
-Consumer Thread appears after the wait() in poll()
-Consumes Bread #1, still have 3 breads
-Consumes Bread #2, still have 2 breads
-Consumes Bread #3, still have 1 breads
-Consumes Bread #4, still have 0 breads
+Consumer Thread awakes from the wait() in poll()
+Consumes Bread #1, still have 0 breads
 Tell Consumer Thread, the basket is empty, enter wait()!!!
-Produces Bread #5, still have 1 breads
-Produces Bread #6, still have 2 breads
-Produces Bread #7, still have 3 breads
-Produces Bread #8, still have 4 breads
-Produces Bread #9, still have 5 breads
-Produces Bread #10, still have 6 breads
-Produces Bread #11, still have 7 breads
-Consumer Thread appears after the wait() in poll()
-Consumes Bread #5, still have 6 breads
-Consumes Bread #6, still have 5 breads
-Consumes Bread #7, still have 4 breads
-Consumes Bread #8, still have 3 breads
-Consumes Bread #9, still have 2 breads
-Consumes Bread #10, still have 1 breads
+Produces Bread #2, still have 1 breads
+Produces Bread #3, still have 2 breads
+Produces Bread #4, still have 3 breads
+Produces Bread #5, still have 4 breads
+Produces Bread #6, still have 5 breads
+Produces Bread #7, still have 6 breads
+Produces Bread #8, still have 7 breads
+Consumer Thread awakes from the wait() in poll()
+Consumes Bread #2, still have 6 breads
+Consumes Bread #3, still have 5 breads
+Consumes Bread #4, still have 4 breads
+Consumes Bread #5, still have 3 breads
+Consumes Bread #6, still have 2 breads
+Consumes Bread #7, still have 1 breads
+Consumes Bread #8, still have 0 breads
+Tell Consumer Thread, the basket is empty, enter wait()!!!
+Produces Bread #9, still have 1 breads
+Produces Bread #10, still have 2 breads
+Consumer Thread awakes from the wait() in poll()
+Consumes Bread #9, still have 1 breads
+Consumes Bread #10, still have 0 breads
+Tell Consumer Thread, the basket is empty, enter wait()!!!
+Produces Bread #11, still have 1 breads
+Consumer Thread awakes from the wait() in poll()
 Consumes Bread #11, still have 0 breads
 Tell Consumer Thread, the basket is empty, enter wait()!!!
 Produces Bread #12, still have 1 breads
-Consumer Thread appears after the wait() in poll()
+Consumer Thread awakes from the wait() in poll()
 Consumes Bread #12, still have 0 breads
 Tell Consumer Thread, the basket is empty, enter wait()!!!
 Produces Bread #13, still have 1 breads
-Produces Bread #14, still have 2 breads
-Produces Bread #15, still have 3 breads
-Produces Bread #16, still have 4 breads
-Produces Bread #17, still have 5 breads
-Produces Bread #18, still have 6 breads
-Produces Bread #19, still have 7 breads
-Produces Bread #20, still have 8 breads
-Produces Bread #21, still have 9 breads
-Produces Bread #22, still have 10 breads
-Tell Producer Thread, the basket is full, enter wait()!!!
-Consumer Thread appears after the wait() in poll()
-Consumes Bread #13, still have 9 breads
-Consumes Bread #14, still have 8 breads
-Consumes Bread #15, still have 7 breads
-Consumes Bread #16, still have 6 breads
-Consumes Bread #17, still have 5 breads
-Consumes Bread #18, still have 4 breads
-Consumes Bread #19, still have 3 breads
+Consumer Thread awakes from the wait() in poll()
+Consumes Bread #13, still have 0 breads
+Tell Consumer Thread, the basket is empty, enter wait()!!!
+Produces Bread #14, still have 1 breads
+Consumer Thread awakes from the wait() in poll()
+Consumes Bread #14, still have 0 breads
+Tell Consumer Thread, the basket is empty, enter wait()!!!
+Produces Bread #15, still have 1 breads
+Consumer Thread awakes from the wait() in poll()
+Consumes Bread #15, still have 0 breads
+Tell Consumer Thread, the basket is empty, enter wait()!!!
+Produces Bread #16, still have 1 breads
+Consumer Thread awakes from the wait() in poll()
+Consumes Bread #16, still have 0 breads
+Tell Consumer Thread, the basket is empty, enter wait()!!!
+Produces Bread #17, still have 1 breads
+Consumer Thread awakes from the wait() in poll()
+Consumes Bread #17, still have 0 breads
+Tell Consumer Thread, the basket is empty, enter wait()!!!
+Produces Bread #18, still have 1 breads
+Consumer Thread awakes from the wait() in poll()
+Consumes Bread #18, still have 0 breads
+Tell Consumer Thread, the basket is empty, enter wait()!!!
+Produces Bread #19, still have 1 breads
+Consumer Thread awakes from the wait() in poll()
+Consumes Bread #19, still have 0 breads
+Tell Consumer Thread, the basket is empty, enter wait()!!!
+Produces Bread #20, still have 1 breads
+Produces Bread #21, still have 2 breads
+Produces Bread #22, still have 3 breads
+Consumer Thread awakes from the wait() in poll()
 Consumes Bread #20, still have 2 breads
 Consumes Bread #21, still have 1 breads
 Consumes Bread #22, still have 0 breads
 Tell Consumer Thread, the basket is empty, enter wait()!!!
-Producer Thread appears after the wait() in add()
 Produces Bread #23, still have 1 breads
-Produces Bread #24, still have 2 breads
-Produces Bread #25, still have 3 breads
-Produces Bread #26, still have 4 breads
-Produces Bread #27, still have 5 breads
-Produces Bread #28, still have 6 breads
-Produces Bread #29, still have 7 breads
-Produces Bread #30, still have 8 breads
-Produces Bread #31, still have 9 breads
-Produces Bread #32, still have 10 breads
+Consumer Thread awakes from the wait() in poll()
+Consumes Bread #23, still have 0 breads
+Tell Consumer Thread, the basket is empty, enter wait()!!!
+Produces Bread #24, still have 1 breads
+Consumer Thread awakes from the wait() in poll()
+Consumes Bread #24, still have 0 breads
+Tell Consumer Thread, the basket is empty, enter wait()!!!
+Produces Bread #25, still have 1 breads
+Consumer Thread awakes from the wait() in poll()
+Consumes Bread #25, still have 0 breads
+Tell Consumer Thread, the basket is empty, enter wait()!!!
+Produces Bread #26, still have 1 breads
+Produces Bread #27, still have 2 breads
+Consumer Thread awakes from the wait() in poll()
+Consumes Bread #26, still have 1 breads
+Consumes Bread #27, still have 0 breads
+Tell Consumer Thread, the basket is empty, enter wait()!!!
+Produces Bread #28, still have 1 breads
+Consumer Thread awakes from the wait() in poll()
+Consumes Bread #28, still have 0 breads
+Tell Consumer Thread, the basket is empty, enter wait()!!!
+Produces Bread #29, still have 1 breads
+Produces Bread #30, still have 2 breads
+Produces Bread #31, still have 3 breads
+Produces Bread #32, still have 4 breads
+Produces Bread #33, still have 5 breads
+Produces Bread #34, still have 6 breads
+Produces Bread #35, still have 7 breads
+Produces Bread #36, still have 8 breads
+Produces Bread #37, still have 9 breads
+Produces Bread #38, still have 10 breads
 Tell Producer Thread, the basket is full, enter wait()!!!
-Consumer Thread appears after the wait() in poll()
-Consumes Bread #23, still have 9 breads
-Consumes Bread #24, still have 8 breads
-Consumes Bread #25, still have 7 breads
-Consumes Bread #26, still have 6 breads
-Consumes Bread #27, still have 5 breads
-Consumes Bread #28, still have 4 breads
-Consumes Bread #29, still have 3 breads
-Consumes Bread #30, still have 2 breads
-Consumes Bread #31, still have 1 breads
-Consumes Bread #32, still have 0 breads
+Consumer Thread awakes from the wait() in poll()
+Consumes Bread #29, still have 9 breads
+Consumes Bread #30, still have 8 breads
+Consumes Bread #31, still have 7 breads
+Consumes Bread #32, still have 6 breads
+Consumes Bread #33, still have 5 breads
+Consumes Bread #34, still have 4 breads
+Consumes Bread #35, still have 3 breads
+Consumes Bread #36, still have 2 breads
+Consumes Bread #37, still have 1 breads
+Consumes Bread #38, still have 0 breads
 Tell Consumer Thread, the basket is empty, enter wait()!!!
-Producer Thread appears after the wait() in add()
-Produces Bread #33, still have 1 breads
-Produces Bread #34, still have 2 breads
-Produces Bread #35, still have 3 breads
-Produces Bread #36, still have 4 breads
-Produces Bread #37, still have 5 breads
-Produces Bread #38, still have 6 breads
-Produces Bread #39, still have 7 breads
-Produces Bread #40, still have 8 breads
-Produces Bread #41, still have 9 breads
-Produces Bread #42, still have 10 breads
+Producer Thread awakes from the wait() in add()
+Produces Bread #39, still have 1 breads
+Produces Bread #40, still have 2 breads
+Produces Bread #41, still have 3 breads
+Produces Bread #42, still have 4 breads
+Produces Bread #43, still have 5 breads
+Produces Bread #44, still have 6 breads
+Produces Bread #45, still have 7 breads
+Produces Bread #46, still have 8 breads
+Produces Bread #47, still have 9 breads
+Produces Bread #48, still have 10 breads
 Tell Producer Thread, the basket is full, enter wait()!!!
-Consumer Thread appears after the wait() in poll()
-Consumes Bread #33, still have 9 breads
-Consumes Bread #34, still have 8 breads
-Consumes Bread #35, still have 7 breads
-Consumes Bread #36, still have 6 breads
-Consumes Bread #37, still have 5 breads
-Producer Thread appears after the wait() in add()
-Produces Bread #43, still have 6 breads
-Consumes Bread #38, still have 5 breads
-Consumes Bread #39, still have 4 breads
-Consumes Bread #40, still have 3 breads
-Consumes Bread #41, still have 2 breads
-Consumes Bread #42, still have 1 breads
-Consumes Bread #43, still have 0 breads
+Consumer Thread awakes from the wait() in poll()
+Consumes Bread #39, still have 9 breads
+Consumes Bread #40, still have 8 breads
+Consumes Bread #41, still have 7 breads
+Consumes Bread #42, still have 6 breads
+Consumes Bread #43, still have 5 breads
+Consumes Bread #44, still have 4 breads
+Consumes Bread #45, still have 3 breads
+Consumes Bread #46, still have 2 breads
+Consumes Bread #47, still have 1 breads
+Consumes Bread #48, still have 0 breads
 Tell Consumer Thread, the basket is empty, enter wait()!!!
-Produces Bread #44, still have 1 breads
-Produces Bread #45, still have 2 breads
-Produces Bread #46, still have 3 breads
-Produces Bread #47, still have 4 breads
-Produces Bread #48, still have 5 breads
-Produces Bread #49, still have 6 breads
-Produces Bread #50, still have 7 breads
-Produces Bread #51, still have 8 breads
-Produces Bread #52, still have 9 breads
-Produces Bread #53, still have 10 breads
+Producer Thread awakes from the wait() in add()
+Produces Bread #49, still have 1 breads
+Produces Bread #50, still have 2 breads
+Produces Bread #51, still have 3 breads
+Produces Bread #52, still have 4 breads
+Produces Bread #53, still have 5 breads
+Produces Bread #54, still have 6 breads
+Consumer Thread awakes from the wait() in poll()
+Consumes Bread #49, still have 5 breads
+Consumes Bread #50, still have 4 breads
+Consumes Bread #51, still have 3 breads
+Consumes Bread #52, still have 2 breads
+Consumes Bread #53, still have 1 breads
+Consumes Bread #54, still have 0 breads
+Tell Consumer Thread, the basket is empty, enter wait()!!!
+Produces Bread #55, still have 1 breads
+Produces Bread #56, still have 2 breads
+Produces Bread #57, still have 3 breads
+Produces Bread #58, still have 4 breads
+Produces Bread #59, still have 5 breads
+Produces Bread #60, still have 6 breads
+Produces Bread #61, still have 7 breads
+Produces Bread #62, still have 8 breads
+Produces Bread #63, still have 9 breads
+Produces Bread #64, still have 10 breads
 Tell Producer Thread, the basket is full, enter wait()!!!
-Consumer Thread appears after the wait() in poll()
-Consumes Bread #44, still have 9 breads
-Consumes Bread #45, still have 8 breads
-Consumes Bread #46, still have 7 breads
-Consumes Bread #47, still have 6 breads
-Consumes Bread #48, still have 5 breads
-Consumes Bread #49, still have 4 breads
-Consumes Bread #50, still have 3 breads
-Consumes Bread #51, still have 2 breads
-Consumes Bread #52, still have 1 breads
-Consumes Bread #53, still have 0 breads
+Consumer Thread awakes from the wait() in poll()
+Consumes Bread #55, still have 9 breads
+Consumes Bread #56, still have 8 breads
+Consumes Bread #57, still have 7 breads
+Consumes Bread #58, still have 6 breads
+Consumes Bread #59, still have 5 breads
+Consumes Bread #60, still have 4 breads
+Consumes Bread #61, still have 3 breads
+Consumes Bread #62, still have 2 breads
+Consumes Bread #63, still have 1 breads
+Consumes Bread #64, still have 0 breads
 Tell Consumer Thread, the basket is empty, enter wait()!!!
-Producer Thread appears after the wait() in add()
-Produces Bread #54, still have 1 breads
-Produces Bread #55, still have 2 breads
-Produces Bread #56, still have 3 breads
-Produces Bread #57, still have 4 breads
-Produces Bread #58, still have 5 breads
-Produces Bread #59, still have 6 breads
-Produces Bread #60, still have 7 breads
-Produces Bread #61, still have 8 breads
-Consumer Thread appears after the wait() in poll()
-Consumes Bread #54, still have 7 breads
-Consumes Bread #55, still have 6 breads
-Consumes Bread #56, still have 5 breads
-Consumes Bread #57, still have 4 breads
-Consumes Bread #58, still have 3 breads
-Consumes Bread #59, still have 2 breads
-Consumes Bread #60, still have 1 breads
-Consumes Bread #61, still have 0 breads
-Tell Consumer Thread, the basket is empty, enter wait()!!!
-Produces Bread #62, still have 1 breads
-Produces Bread #63, still have 2 breads
-Produces Bread #64, still have 3 breads
-Produces Bread #65, still have 4 breads
-Produces Bread #66, still have 5 breads
-Produces Bread #67, still have 6 breads
-Produces Bread #68, still have 7 breads
-Produces Bread #69, still have 8 breads
-Produces Bread #70, still have 9 breads
-Produces Bread #71, still have 10 breads
+Producer Thread awakes from the wait() in add()
+Produces Bread #65, still have 1 breads
+Produces Bread #66, still have 2 breads
+Produces Bread #67, still have 3 breads
+Produces Bread #68, still have 4 breads
+Produces Bread #69, still have 5 breads
+Produces Bread #70, still have 6 breads
+Produces Bread #71, still have 7 breads
+Produces Bread #72, still have 8 breads
+Produces Bread #73, still have 9 breads
+Produces Bread #74, still have 10 breads
 Tell Producer Thread, the basket is full, enter wait()!!!
-Consumer Thread appears after the wait() in poll()
-Consumes Bread #62, still have 9 breads
-Consumes Bread #63, still have 8 breads
-Consumes Bread #64, still have 7 breads
-Consumes Bread #65, still have 6 breads
-Consumes Bread #66, still have 5 breads
-Consumes Bread #67, still have 4 breads
-Consumes Bread #68, still have 3 breads
-Consumes Bread #69, still have 2 breads
-Consumes Bread #70, still have 1 breads
-Consumes Bread #71, still have 0 breads
+Consumer Thread awakes from the wait() in poll()
+Consumes Bread #65, still have 9 breads
+Consumes Bread #66, still have 8 breads
+Consumes Bread #67, still have 7 breads
+Consumes Bread #68, still have 6 breads
+Consumes Bread #69, still have 5 breads
+Consumes Bread #70, still have 4 breads
+Consumes Bread #71, still have 3 breads
+Consumes Bread #72, still have 2 breads
+Consumes Bread #73, still have 1 breads
+Consumes Bread #74, still have 0 breads
 Tell Consumer Thread, the basket is empty, enter wait()!!!
-Producer Thread appears after the wait() in add()
-Produces Bread #72, still have 1 breads
-Produces Bread #73, still have 2 breads
-Produces Bread #74, still have 3 breads
-Produces Bread #75, still have 4 breads
-Produces Bread #76, still have 5 breads
-Consumer Thread appears after the wait() in poll()
-Consumes Bread #72, still have 4 breads
-Consumes Bread #73, still have 3 breads
-Consumes Bread #74, still have 2 breads
-Consumes Bread #75, still have 1 breads
-Consumes Bread #76, still have 0 breads
-Tell Consumer Thread, the basket is empty, enter wait()!!!
-Produces Bread #77, still have 1 breads
-Produces Bread #78, still have 2 breads
-Produces Bread #79, still have 3 breads
-Produces Bread #80, still have 4 breads
-Produces Bread #81, still have 5 breads
-Produces Bread #82, still have 6 breads
-Produces Bread #83, still have 7 breads
-Produces Bread #84, still have 8 breads
-Produces Bread #85, still have 9 breads
-Produces Bread #86, still have 10 breads
+Producer Thread awakes from the wait() in add()
+Produces Bread #75, still have 1 breads
+Produces Bread #76, still have 2 breads
+Produces Bread #77, still have 3 breads
+Produces Bread #78, still have 4 breads
+Produces Bread #79, still have 5 breads
+Produces Bread #80, still have 6 breads
+Produces Bread #81, still have 7 breads
+Produces Bread #82, still have 8 breads
+Produces Bread #83, still have 9 breads
+Produces Bread #84, still have 10 breads
 Tell Producer Thread, the basket is full, enter wait()!!!
-Consumer Thread appears after the wait() in poll()
-Consumes Bread #77, still have 9 breads
-Consumes Bread #78, still have 8 breads
-Consumes Bread #79, still have 7 breads
-Consumes Bread #80, still have 6 breads
-Consumes Bread #81, still have 5 breads
-Consumes Bread #82, still have 4 breads
-Consumes Bread #83, still have 3 breads
-Consumes Bread #84, still have 2 breads
-Consumes Bread #85, still have 1 breads
-Consumes Bread #86, still have 0 breads
+Consumer Thread awakes from the wait() in poll()
+Consumes Bread #75, still have 9 breads
+Consumes Bread #76, still have 8 breads
+Consumes Bread #77, still have 7 breads
+Consumes Bread #78, still have 6 breads
+Consumes Bread #79, still have 5 breads
+Consumes Bread #80, still have 4 breads
+Consumes Bread #81, still have 3 breads
+Consumes Bread #82, still have 2 breads
+Consumes Bread #83, still have 1 breads
+Consumes Bread #84, still have 0 breads
 Tell Consumer Thread, the basket is empty, enter wait()!!!
-Producer Thread appears after the wait() in add()
-Produces Bread #87, still have 1 breads
-Consumer Thread appears after the wait() in poll()
-Consumes Bread #87, still have 0 breads
-Tell Consumer Thread, the basket is empty, enter wait()!!!
-Produces Bread #88, still have 1 breads
-Produces Bread #89, still have 2 breads
-Produces Bread #90, still have 3 breads
-Produces Bread #91, still have 4 breads
-Produces Bread #92, still have 5 breads
-Produces Bread #93, still have 6 breads
-Produces Bread #94, still have 7 breads
-Produces Bread #95, still have 8 breads
-Produces Bread #96, still have 9 breads
-Produces Bread #97, still have 10 breads
+Producer Thread awakes from the wait() in add()
+Produces Bread #85, still have 1 breads
+Produces Bread #86, still have 2 breads
+Produces Bread #87, still have 3 breads
+Produces Bread #88, still have 4 breads
+Produces Bread #89, still have 5 breads
+Produces Bread #90, still have 6 breads
+Produces Bread #91, still have 7 breads
+Produces Bread #92, still have 8 breads
+Produces Bread #93, still have 9 breads
+Produces Bread #94, still have 10 breads
 Tell Producer Thread, the basket is full, enter wait()!!!
-Consumer Thread appears after the wait() in poll()
-Consumes Bread #88, still have 9 breads
-Consumes Bread #89, still have 8 breads
-Consumes Bread #90, still have 7 breads
-Consumes Bread #91, still have 6 breads
-Consumes Bread #92, still have 5 breads
-Consumes Bread #93, still have 4 breads
-Consumes Bread #94, still have 3 breads
-Consumes Bread #95, still have 2 breads
-Consumes Bread #96, still have 1 breads
-Consumes Bread #97, still have 0 breads
+Consumer Thread awakes from the wait() in poll()
+Consumes Bread #85, still have 9 breads
+Consumes Bread #86, still have 8 breads
+Consumes Bread #87, still have 7 breads
+Consumes Bread #88, still have 6 breads
+Consumes Bread #89, still have 5 breads
+Consumes Bread #90, still have 4 breads
+Consumes Bread #91, still have 3 breads
+Consumes Bread #92, still have 2 breads
+Consumes Bread #93, still have 1 breads
+Consumes Bread #94, still have 0 breads
 Tell Consumer Thread, the basket is empty, enter wait()!!!
-Producer Thread appears after the wait() in add()
-Produces Bread #98, still have 1 breads
-Produces Bread #99, still have 2 breads
-Produces Bread #100, still have 3 breads
-Consumer Thread appears after the wait() in poll()
+Producer Thread awakes from the wait() in add()
+Produces Bread #95, still have 1 breads
+Produces Bread #96, still have 2 breads
+Produces Bread #97, still have 3 breads
+Produces Bread #98, still have 4 breads
+Produces Bread #99, still have 5 breads
+Produces Bread #100, still have 6 breads
+Consumer Thread awakes from the wait() in poll()
+Consumes Bread #95, still have 5 breads
+Consumes Bread #96, still have 4 breads
+Consumes Bread #97, still have 3 breads
 Consumes Bread #98, still have 2 breads
 Consumes Bread #99, still have 1 breads
 Consumes Bread #100, still have 0 breads
