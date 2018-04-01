@@ -537,3 +537,59 @@ End of the demo
 Both the `Producer` and the `Consumer` has the mission of 100 `Breads`. If the thread find the situation is not satisfactory to it to produce/consume more `Breads`, it will invoke `wait()` and immediately exit the synchronized block and give up the key of the `Basket`. At the same time, the other thread has already been `notified` before so it can take charge of the key. This thread will `awake` from the `wait()` function which caused its previous sleep. 
 
 At the end of each synchronized blocks (`add()` and `poll()` function in our example), we `notify` all threads that we are going to get out of the synchronized block, its their time to take charge of the key. Basically, there will be multiple threads that are able to get the key of the `Basket`, the JVM just randomly pick one. This is the reason why the `Producer` can produce again and again but the `Consumer` cannot eat a single bread. The `Consumer` just not lucky enough.
+
+## theAtomicClass
+This demo test the `Atomicity` of `volatile`. There is a field `count` to be marked as `static volatile` in `intWrapper` class. Every thread can invoke the static function `plus()` to add `count` by 1 **based on its current value**.
+
+In `nonAtomicTest`, we create 1000 threads, and for every thread, we invoke `plus()`. The result shows below:
+
+```
+993
+```
+This indicates the non-atomicity of `volatile`. In fact, the `i++` command has 3 steps: 
+
+1. Fetch value of `i` from memory
+2. Add 1 to the value
+3. Write back to the memory
+
+Imagine the scenario:
+
+<table>
+    <tr>
+        <th>Thread 1</th>
+        <th>Thread 2</th>
+    </tr> 
+    <tr>
+        <td>
+            1. Fetch value of <i>i</i> from memory <br>
+                <span style="margin-left: 30px">i = 6 in memory</span><br>
+            2. Add 1 to the value <br>
+                <span style="margin-left: 30px">i = 7 in cache</span><br>
+        </td>
+        <td></td>
+    </tr> 
+    <tr>
+        <td></td>
+        <td>
+            1. Fetch value of <i>i</i> from memory <br>
+                <span style="margin-left: 30px">i = 6 in memory</span><br>
+            2. Add 1 to the value <br>
+                <span style="margin-left: 30px">i = 7 in cache</span><br>
+            3. Write back to the memory <br>
+                <span style="margin-left: 30px">i = 7 in memory</span><br>
+        </td>
+    </tr>
+        <td>
+            3. Write back to the memory <br>
+                <span style="margin-left: 30px">i = 7 in memory</span><br>
+        </td>
+        <td></td>
+</table>
+
+This will cause two threads just increase `i` by 1, not 2.
+
+To solve this problem, we can use `AtomicInteger` in this scenario, the `getAndIncrement()` function guarantees the atomicity of the variable. The result is always:
+
+```
+1000
+```
