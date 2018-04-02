@@ -1,6 +1,19 @@
 # MultiThreadDemos
 Several Java Multithreading demos I played with these days.
 
+Navigation:
+
+[countDownLatchDemo](#countdownlatchdemo)
+
+[deadLock](#deadlock)
+
+[productorAndConsumer](#productorandconsumer)
+
+[theAtomicClass](#theatomicclass)
+
+[theLockAndReentrantLock](#thelockandreentrantlock)
+
+
 ## countDownLatchDemo
 Use `CountDownLatch` and `ExecutorService` threadpool in this case. Basically, the main program creates 100 threads with the `newCachedThreadPool()`, and for each thread, the `countDown()` is executed. In this case, the `SampleThread` has to wait until all `WorkingThreads` have been terminated. 
 A typical result is shown below:
@@ -620,4 +633,4 @@ Thread9 cannot get the lock of the List: [Thread0, Thread5]
 The final state of the List:             [Thread0, Thread5, Thread8]
 ```
 
-As we can see, although 10 threads `(Thread0, Thread1, ..., Thread9)` have tried to get the lock, only `Thread0, Thread5 and Thread8` achieved their goal. One may confused about the order of the printed lines. For example, `Thread5 release the lock of List:        [Thread0, Thread5]` appears before `Thread6 cannot get the lock of the List: [Thread0]`. This is because the `tryLock()` function and statements in `else{}` is not atomic, so some other statements may be executed between the invocation of `tryLock()` and `else{}`.
+As we can see, although 10 threads `(Thread0, Thread1, ..., Thread9)` have tried to get the lock, only `Thread0, Thread5 and Thread8` achieved their goal. One may confused about the order of the printed lines. For example, `Thread5 release the lock of List:        [Thread0, Thread5]` appears before `Thread6 cannot get the lock of the List: [Thread0]`. This is because the `tryLock()` function and statements in `if{} else{}` is not atomic, so some other statements may be executed between the invocation of `tryLock()` and `if {} else{}`.
