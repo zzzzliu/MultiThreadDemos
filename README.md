@@ -2,7 +2,7 @@
 Several Java Multithreading demos I played with these days.
 
 ## countDownLatchDemo
-Use `CountDownLatch` and `ExecutorService` threadpool in this case. Basically, the main program creates 100 threads with the `newCachedThreadPool()`, and for each thread, the `countDown()` is executed. In this case, the `SampleThread` has to wait until all `WorkingThreads` has been terminated. 
+Use `CountDownLatch` and `ExecutorService` threadpool in this case. Basically, the main program creates 100 threads with the `newCachedThreadPool()`, and for each thread, the `countDown()` is executed. In this case, the `SampleThread` has to wait until all `WorkingThreads` have been terminated. 
 A typical result is shown below:
 ```
 SampleThread started!
@@ -208,7 +208,7 @@ pool-1-thread-41 end
 pool-1-thread-37 end
 SampleThread end!
 ```
-As previously discussed, the `SampleThread` starts first but ends last. Besides, the `number of execution` is always guaranteed to be larger or equal to the `thread number`, this is because the `CachedThreadPool` helps us create/save/reuse threads dynamically.
+As we can see, the `SampleThread` starts first but ends last. Besides, the `number of execution` is always guaranteed to be larger or equal to the `thread number`, this is because the `CachedThreadPool` helps us create/save/reuse threads dynamically.
 
 ## deadLock
 3 accounts trying to transfer money to each other. However, this process will create a loop, i.e. A -> B -> C -> A. Since each trasfer thread has to get the lock of both `in` account and `out` account, the loop will cause dead lock.
@@ -252,9 +252,9 @@ Tom has money: 2800
 Jerry has money: 3100
 Cory has money: 3100
 ```
-To deal with the deadlock loop, we forced each thread to get lock by the increasing order of the account, no matter which one is `in` account and which one is `out` account. In this example, `Cory` -> `Jerry` -> `Tom`. 
+To deal with the deadlock loop, we forced each thread to get locks by the increasing order of the accounts, no matter which one is `in` account and which one is `out` account. In this example, `Cory` -> `Jerry` -> `Tom`. 
 
-If Tom wants transfer money to Jerry, he has to wait the lock of `Jerry` to be released, then he get the lock `Jerry`, then he get the lock of `Tom`. In previous example, he get `Tom` first then `Jerry`.
+If Tom wants transfer money to Jerry, he has to wait the lock of `Jerry` to be released, then he get the lock of `Jerry`, then he get the lock of `Tom`. In previous example, he get `Tom` first then `Jerry`.
 
 ## productorAndConsumer
 According to Wikipeida the Producer-Consumer Problem is defined as:
@@ -262,7 +262,7 @@ According to Wikipeida the Producer-Consumer Problem is defined as:
 In computing, the producer–consumer problem (also known as the bounded-buffer problem) is a classic example of a multi-process synchronization problem. The problem describes two processes, the producer and the consumer, who share a common, fixed-size buffer used as a queue. 
 ```
 
-In our example, the `Producer` and `Consumer` share a same `Basket` whose size is strictly `10`. Every time the `Producer` produces a new `Bread`, they add it into the `Basket`, and every time the `Consumer` is hungry, they take one `Bread` from the `Basket`. If the `Basket` is full, the `Producer` cannot add anymore `Breads`. If the `Basket` is empty, the `Consumer` cannot eat anymore.
+In our example, the `Producer` and `Consumer` share a same `Basket` whose size is strictly `10`. Every time the `Producer` produces a new `Bread`, it adds it into the `Basket`, and every time the `Consumer` is hungry, it takes one `Bread` from the `Basket`. If the `Basket` is full, the `Producer` cannot add anymore `Breads`. If the `Basket` is empty, the `Consumer` cannot eat anymore.
 
 A typical result is shown below:
 ```
@@ -534,9 +534,9 @@ Consumes Bread #100, still have 0 breads
 End of the demo
 ```
 
-Both the `Producer` and the `Consumer` has the mission of 100 `Breads`. If the thread find the situation is not satisfactory to it to produce/consume more `Breads`, it will invoke `wait()` and immediately exit the synchronized block and give up the key of the `Basket`. At the same time, the other thread has already been `notified` before so it can take charge of the key. This thread will `awake` from the `wait()` function which caused its previous sleep. 
+Both the `Producer` and the `Consumer` has the mission of 100 `Breads`. If the thread find the situation is not satisfactory to it to produce/consume more `Breads`, it will invoke `wait()` and immediately exit the synchronized block and give up the key of the `Basket`. At the same time, the other thread has already been `notified` so it can take charge of the key. This thread will `awake` from the `wait()` function which caused its previous sleep. 
 
-At the end of each synchronized blocks (`add()` and `poll()` function in our example), we `notify` all threads that we are going to get out of the synchronized block, its their time to take charge of the key. Basically, there will be multiple threads that are able to get the key of the `Basket`, the JVM just randomly pick one. This is the reason why the `Producer` can produce again and again but the `Consumer` cannot eat a single bread. The `Consumer` just not lucky enough.
+At the end of each synchronized blocks (`add()` and `poll()` functions in our example), we `notify` all threads that we are going to get out of the synchronized block, its their time to take charge of the key. Basically, there will be multiple threads that are able to get the key of the `Basket`, the JVM just randomly pick one. This is the reason why the `Producer` can produce again and again but the `Consumer` cannot eat a single bread. The `Consumer` just not lucky enough.
 
 ## theAtomicClass
 This demo test the `Atomicity` of `volatile`. There is a field `count` to be marked as `static volatile` in `intWrapper` class. Every thread can invoke the static function `plus()` to add `count` by 1 **based on its current value**.
@@ -581,15 +581,43 @@ Imagine the scenario:
     </tr>
         <td>
             3. Write back to the memory <br>
-                i = 7 in memory
+                &nbsp;&nbsp;&nbsp;&nbsp;i = 7 in memory
         </td>
         <td></td>
 </table>
 
 This will cause two threads just increase `i` by 1, not 2.
 
-To solve this problem, we can use `AtomicInteger` in this scenario, the `getAndIncrement()` function guarantees the atomicity of the variable. The result is always:
+To solve this problem, the `AtomicInteger` class is employed. The `getAndIncrement()` function guarantees the atomicity of the variable. The result is always:
 
 ```
 1000
 ```
+
+## theLockAndReentrantLock
+
+Rather than `synchronized`, the `Lock` interface and `ReentrantLock` class are employed in this demo. One of the most powerful feature of the `Lock` is that it can get some knowledges about the lock without being blocked. `tryLock()` returns `true` if it can get the lock, and `false` if it cannot get the lock. So we can write an `if-else` statement to deal with this situation.
+
+With `synchronized`, if threads are blocked, they can do nothing but wait for the lock to be released. But with `tryLock()`, we can just give up getting the lock and let this thread do something else.
+
+An typical result is shown below. The program creates 10 threads, if the thread can get the lock, it will insert its name in the list.
+
+```
+Thread0 get the lock of the List:        []
+Thread2 cannot get the lock of the List: []
+Thread3 cannot get the lock of the List: [Thread0]
+Thread1 cannot get the lock of the List: []
+Thread4 cannot get the lock of the List: [Thread0]
+Thread0 release the lock of List:        [Thread0]
+Thread5 get the lock of the List:        [Thread0]
+Thread5 release the lock of List:        [Thread0, Thread5]
+Thread6 cannot get the lock of the List: [Thread0]
+Thread7 cannot get the lock of the List: [Thread0, Thread5]
+Thread8 get the lock of the List:        [Thread0, Thread5]
+Thread8 release the lock of List:        [Thread0, Thread5, Thread8]
+Thread9 cannot get the lock of the List: [Thread0, Thread5]
+
+The final state of the List:             [Thread0, Thread5, Thread8]
+```
+
+As we can see, although 10 threads `(Thread0, Thread1, ..., Thread9)` have tried to get the lock, only `Thread0, Thread5 and Thread8` achieved their goal. One may confused about the order of the printed lines. For example, `Thread5 release the lock of List:        [Thread0, Thread5]` appears before `Thread6 cannot get the lock of the List: [Thread0]`. This is because the `tryLock()` function and statements in `else{}` is not atomic, so some other statements may be executed between the invocation of `tryLock()` and `else{}`.
