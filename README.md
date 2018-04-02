@@ -219,6 +219,8 @@ SampleThread end!
 ```
 As we can see, the `SampleThread` starts first but ends last. Besides, the `number of execution` is always guaranteed to be larger or equal to the `thread number`, this is because the `CachedThreadPool` helps us create/save/reuse threads dynamically.
 
+[Back to Navigation](#multithreaddemos)
+
 ## deadLock
 3 accounts trying to transfer money to each other. However, this process will create a loop, i.e. A -> B -> C -> A. Since each trasfer thread has to get the lock of both `in` account and `out` account, the loop will cause dead lock.
 
@@ -264,6 +266,8 @@ Cory has money: 3100
 To deal with the deadlock loop, we forced each thread to get locks by the increasing order of the accounts, no matter which one is `in` account and which one is `out` account. In this example, `Cory` -> `Jerry` -> `Tom`. 
 
 If Tom wants transfer money to Jerry, he has to wait the lock of `Jerry` to be released, then he get the lock of `Jerry`, then he get the lock of `Tom`. In previous example, he get `Tom` first then `Jerry`.
+
+[Back to Navigation](#multithreaddemos)
 
 ## productorAndConsumer
 According to Wikipeida the Producer-Consumer Problem is defined as:
@@ -547,6 +551,8 @@ Both the `Producer` and the `Consumer` has the mission of 100 `Breads`. If the t
 
 At the end of each synchronized blocks (`add()` and `poll()` functions in our example), we `notify` all threads that we are going to get out of the synchronized block, its their time to take charge of the key. Basically, there will be multiple threads that are able to get the key of the `Basket`, the JVM just randomly pick one. This is the reason why the `Producer` can produce again and again but the `Consumer` cannot eat a single bread. The `Consumer` just not lucky enough.
 
+[Back to Navigation](#multithreaddemos)
+
 ## theAtomicClass
 This demo test the `Atomicity` of `volatile`. There is a field `count` to be marked as `static volatile` in `intWrapper` class. Every thread can invoke the static function `plus()` to add `count` by 1 **based on its current value**.
 
@@ -602,6 +608,7 @@ To solve this problem, the `AtomicInteger` class is employed. The `getAndIncreme
 ```
 1000
 ```
+[Back to Navigation](#multithreaddemos)
 
 ## theLockAndReentrantLock
 
@@ -630,3 +637,5 @@ The final state of the List:             [Thread0, Thread5, Thread8]
 ```
 
 As we can see, although 10 threads `(Thread0, Thread1, ..., Thread9)` have tried to get the lock, only `Thread0, Thread5 and Thread8` achieved their goal. One may confused about the order of the printed lines. For example, `Thread5 release the lock of List:        [Thread0, Thread5]` appears before `Thread6 cannot get the lock of the List: [Thread0]`. This is because the `tryLock()` function and statements in `if{} else{}` is not atomic, so some other statements may be executed between the invocation of `tryLock()` and `if {} else{}`.
+
+[Back to Navigation](#multithreaddemos)
