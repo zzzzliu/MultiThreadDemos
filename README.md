@@ -1,17 +1,13 @@
 # MultiThreadDemos
 Several Java Multithreading demos I played with these days.
 
-Navigation:
+**Navigation:**
 
-[countDownLatchDemo](#countdownlatchdemo)
-
-[deadLock](#deadlock)
-
-[productorAndConsumer](#productorandconsumer)
-
-[theAtomicClass](#theatomicclass)
-
-[theLockAndReentrantLock](#thelockandreentrantlock)
+- [countDownLatchDemo](#countdownlatchdemo)
+- [deadLock](#deadlock)
+- [productorAndConsumer](#productorandconsumer)
+- [theAtomicClass](#theatomicclass)
+- [theLockAndReentrantLock](#thelockandreentrantlock)
 
 
 ## countDownLatchDemo
