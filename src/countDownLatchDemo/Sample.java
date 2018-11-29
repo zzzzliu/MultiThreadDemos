@@ -31,11 +31,11 @@ public class Sample {
 	private static class SampleThread extends Thread {  
 		@Override  
 		public void run() {  
-	    System.out.println("SampleThread started!");  
-	    try {  
-	    		// wait until the mCountDownLatch becomes 0
-	    		mCountDownLatch.await();  
-	    	} catch (InterruptedException e) {}  
+		    System.out.println("SampleThread started!");  
+		    try {  
+		    		// wait until the mCountDownLatch becomes 0
+		    		mCountDownLatch.await();  
+		    	} catch (InterruptedException e) {}  
 	    		System.out.println("SampleThread end!");  
 	    }  
 	}  
