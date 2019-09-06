@@ -10,33 +10,35 @@ public class Sample {
 	    private final int mSleepTime;  
 	    private int name;
 	    public WorkingThread(int sleepTime, int name) {  
-	        mSleepTime = sleepTime;  
+	    	mSleepTime = sleepTime;  
 	        this.name = name;
 	    }  
 	      
 	    @Override  
 	    public void run() {  
-	    		String threadName = Thread.currentThread().getName();
-	    		threadName += threadName.split("-")[3].length() < 2 ? " " : "";
+	    	String threadName = Thread.currentThread().getName();
+	    	threadName += threadName.split("-")[3].length() < 2 ? " " : "";
 	        System.out.println(threadName + " started, #" + name + " execution");  
+	        
 	        try {    
 	            Thread.sleep(mSleepTime);    
 	        } catch (InterruptedException e) {    
-	        		e.printStackTrace();    
+	        	e.printStackTrace();    
 	        }  
+	        
 	        System.out.println(threadName +  " end");   
 	        mCountDownLatch.countDown();  
-	       }  
 	    }  
+	}  
 	private static class SampleThread extends Thread {  
 		@Override  
 		public void run() {  
 		    System.out.println("SampleThread started!");  
 		    try {  
-		    		// wait until the mCountDownLatch becomes 0
-		    		mCountDownLatch.await();  
-		    	} catch (InterruptedException e) {}  
-	    		System.out.println("SampleThread end!");  
+		    	// wait until the mCountDownLatch becomes 0
+		    	mCountDownLatch.await();  
+		    } catch (InterruptedException e) {}  
+	    	System.out.println("SampleThread end!");  
 	    }  
 	}  
     
@@ -45,9 +47,10 @@ public class Sample {
         ExecutorService pool = Executors.newCachedThreadPool();
         
         for (int i = 1; i <= 100; i++) {
-        		Runnable temp = new WorkingThread((int) Math.random() % 1000, i);
-        		pool.execute(temp);
+        	Runnable temp = new WorkingThread((int) Math.random() % 1000, i);
+        	pool.execute(temp);
         }
+        
         pool.shutdown();
     }  
 } 
